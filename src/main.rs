@@ -10,10 +10,16 @@ mod tests {
         let url = Url::parse("https://example.com/path1/path2/path3").unwrap();
         assert_eq!(url.to_string(), "https://example.com/path1/path2/path3");
 
-        let result = Url::options()
-            .base_url(Some(&url))
-            .parse("path4/path5/path6")
-            .unwrap();
+        let result = url.join("path4/path5/path6").unwrap();
+        assert_eq!(result.to_string(), "https://example.com/path1/path2/path3/path4/path5/path6");
+    }
+
+    #[test]
+    fn url_shorten_path_trailing_slash() {
+        let url = Url::parse("https://example.com/path1/path2/path3/").unwrap();
+        assert_eq!(url.to_string(), "https://example.com/path1/path2/path3/");
+
+        let result = url.join("path4/path5/path6").unwrap();
         assert_eq!(result.to_string(), "https://example.com/path1/path2/path3/path4/path5/path6");
     }
 
@@ -22,10 +28,16 @@ mod tests {
         let url = Url::parse("https://example.com/path1/path2/path3").unwrap();
         assert_eq!(url.to_string(), "https://example.com/path1/path2/path3");
 
-        let result = Url::options()
-            .base_url(Some(&url))
-            .parse("/path4/path5/path6")
-            .unwrap();
+        let result = url.join("/path4/path5/path6").unwrap();
+        assert_eq!(result.to_string(), "https://example.com/path1/path2/path3/path4/path5/path6");
+    }
+
+    #[test]
+    fn url_shorten_path_leading_trailing_slash() {
+        let url = Url::parse("https://example.com/path1/path2/path3/").unwrap();
+        assert_eq!(url.to_string(), "https://example.com/path1/path2/path3/");
+
+        let result = url.join("/path4/path5/path6").unwrap();
         assert_eq!(result.to_string(), "https://example.com/path1/path2/path3/path4/path5/path6");
     }
 }
