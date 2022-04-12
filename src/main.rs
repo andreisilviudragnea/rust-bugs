@@ -12,7 +12,7 @@ mod tests {
         let result = url.join("path4/path5/path6").unwrap();
         assert_eq!(
             result.to_string(),
-            "https://example.com/path1/path2/path3/path4/path5/path6"
+            "https://example.com/path1/path2/path4/path5/path6"
         );
     }
 
@@ -34,10 +34,7 @@ mod tests {
         assert_eq!(url.to_string(), "https://example.com/path1/path2/path3");
 
         let result = url.join("/path4/path5/path6").unwrap();
-        assert_eq!(
-            result.to_string(),
-            "https://example.com/path1/path2/path3/path4/path5/path6"
-        );
+        assert_eq!(result.to_string(), "https://example.com/path4/path5/path6");
     }
 
     #[test]
@@ -46,9 +43,6 @@ mod tests {
         assert_eq!(url.to_string(), "https://example.com/path1/path2/path3/");
 
         let result = url.join("/path4/path5/path6").unwrap();
-        assert_eq!(
-            result.to_string(),
-            "https://example.com/path1/path2/path3/path4/path5/path6"
-        );
+        assert_eq!(result.to_string(), "https://example.com/path4/path5/path6");
     }
 }
